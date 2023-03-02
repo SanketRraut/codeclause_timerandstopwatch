@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.timer, .stopwatch {
+  display: inline-block;
+  margin-right: 30px;
+  vertical-align: top;
+}
+
+.timer h2, .stopwatch h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.timer-display, .stopwatch-display {
+  font-size: 72px;
+  margin-bottom: 15px;
+}
+
+.timer-buttons, .stopwatch-buttons {
+  margin-top: 15px;
+}
+
+button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin-right: 10px;
+}
+
+button:last-child {
+  margin-right: 0;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Timer and Stopwatch</h1>
+        <div class="timer">
+          <h2>Timer</h2>
+          <div class="timer-display">
+            <span class="minutes">00</span>:<span class="seconds">00</span>
+          </div>
+          <div class="timer-buttons">
+            <button id="start-timer">Start</button>
+            <button id="stop-timer">Stop</button>
+            <button id="reset-timer">Reset</button>
+          </div>
+        </div>
+        <div class="stopwatch">
+          <h2>Stopwatch</h2>
+          <div class="stopwatch-display">
+            <span class="minutes">00</span>:<span class="seconds">00</span>:<span class="milliseconds">00</span>
+          </div>
+          <div class="stopwatch-buttons">
+            <button id="start-stopwatch">Start</button>
+            <button id="stop-stopwatch">Stop</button>
+            <button id="reset-stopwatch">Reset</button>
+          </div>
+        </div>
+      </div>
+      <script>
+        // Timer
+const timerDisplay = document.querySelector('.timer-display');
+const startTimerButton = document.querySelector('#start-timer');
+const stopTimerButton = document.querySelector('#stop-timer');
+const resetTimerButton = document.querySelector('#reset-timer');
+
+let timerInterval;
+let timerDuration = 60; // in seconds
+let timerTimeLeft = timerDuration;
+
+function formatTime(time) {
+  let minutes = Math.floor(time / 60);
+  let seconds = time % 60;
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
+
+  return `${minutes}:${seconds}`;
+}
+
+function updateTimerDisplay() {
+  timerDisplay.textContent = formatTime(timerTimeLeft);
+}
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timerTimeLeft--;
+
+    if (timerTimeLeft < 0) {
+      clearInterval(timerInterval);
+      timerTimeLeft = timerDuration;
+    }
+
+    updateTimerDisplay();
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  timerTimeLeft = timerDuration;
+  updateTimerDisplay();
+}
+
+startTimerButton.addEventListener('click', startTimer);
+stopTimerButton.addEventListener('click', stopTimer);
+resetTimerButton.addEventListener('click', resetTimer);
+
+// Stopwatch
+const stopwatchDisplay = document.querySelector('.stopwatch-display');
+// const start
+
+      </script>
+</body>
+</html>
